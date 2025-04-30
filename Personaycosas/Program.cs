@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using Personaycosas;
+using System.Drawing;
 using ZothrasYTobias;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -70,6 +71,7 @@ Console.WriteLine("Escriba la accion que quiera hacer a continuacion teniendo en
 Console.WriteLine("1: Cambiar Color ");
 Console.WriteLine("2: Recibir Daño ");
 Console.WriteLine("3: Atacar ");
+Console.WriteLine("4: Curar ");
 string accion = Console.ReadLine();
 
 do
@@ -80,9 +82,10 @@ do
     Console.WriteLine("Personaje 2");
     mostramela(p2);
     Console.WriteLine("ingrese una opcion");
-    Console.WriteLine("1: cambiar color");
+    Console.WriteLine("1: Cambiar color");
     Console.WriteLine("2: Recibir daño");
-    Console.WriteLine("3: atacar");
+    Console.WriteLine("3: Atacar");
+    Console.WriteLine("4: Curar");
     string swit = Console.ReadLine();
     switch (swit)
     {
@@ -96,6 +99,15 @@ do
             break;
         case "Atacar":
             p1.Atacar(p2);
+            break;
+        case "Pocion":
+            Console.WriteLine("ingrese que pocion quiere usar entre 1- vida y 2- mana");
+            int poci = int.Parse(Console.ReadLine());
+            if (poci == 1)
+            {
+                
+            }
+           
             break;
 
         default:
