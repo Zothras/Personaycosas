@@ -100,16 +100,7 @@ do
         case "Atacar":
             p1.Atacar(p2);
             break;
-        case "Pocion":
-            Console.WriteLine("ingrese que pocion quiere usar entre 1- vida y 2- mana");
-            int poci = int.Parse(Console.ReadLine());
-            if (poci == 1)
-            {
-                
-            }
-           
-            break;
-
+            
         default:
             Console.WriteLine("Hay un dicho en este planeta... 'Tonto como una piedra'. No es un cumplido -Aurelion Sol (Ingrese una opcion correcta) ");
             break;
