@@ -4,9 +4,16 @@ using ZothrasYTobias;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
+ void pociones(Pocion pociones)
+{ 
+    Console.WriteLine("Ingrese el valor maximo");
+    pociones.Maximo = int.Parse(Console.ReadLine());
+    Console.WriteLine("Ingrese el valor minimo");
+    pociones.Minimo = int.Parse(Console.ReadLine());
 
+}
 
-void carga(Personaje p)
+    void carga(Personaje p)
 {
     Console.WriteLine("Ingrese el color de su personaje");
     p.Color = Console.ReadLine();
@@ -100,12 +107,12 @@ do
             Console.WriteLine("Tienes dos pociones, una de vida y otra de mana, ¿Cual quieres usar?");
             Console.WriteLine("1: Pocion de vida");
             Console.WriteLine("2: Pocion de mana");
-            int Opcion = int.Parse(Console.ReadLine)();
-            if (Opcion = 1)
+            int Opcion = int.Parse(Console.ReadLine());
+            if (Opcion == 1)
             {
 
             }
-            else if (Opcion = 2)
+            else if (Opcion == 2)
             {
                 Console.WriteLine("Cuanto mana quieres recuperar");
                 Pocion_Mana pocion = new Pocion_Mana();

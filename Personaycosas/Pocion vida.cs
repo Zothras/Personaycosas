@@ -13,12 +13,16 @@ namespace Personaycosas
         {
             int VidaPersonaje = character.Vida;
             Random CuracionAleateoria = new Random();
-            CuracionAleateoria.Next(Minimo - Maximo);
-            if (CuracionAleateoria>character.Vida)
+            int generadordevida = CuracionAleateoria.Next(Minimo - Maximo);
+            if (generadordevida>character.Vida)
             {
                 character.Vida = VidaPersonaje;
             }
-
+            else 
+            { 
+                character.Vida += generadordevida;
+            }
+                return character.Vida;
         }
     }
 }

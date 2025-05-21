@@ -13,11 +13,16 @@ namespace Personaycosas
         {
             int ManaPersonaje = character.Mana;
             Random RecuperacionDeManaAletoria = new Random();
-            RecuperacionDeManaAletoria.Next(Minimo - Maximo);
-            if (RecuperacionDeManaAletoria > character.Mana)
+            int generadordemana = RecuperacionDeManaAletoria.Next(Minimo - Maximo);
+            if (generadordemana > character.Mana)
             {
                 character.Mana = ManaPersonaje;
             }
+            else
+            {
+                character.Mana += generadordemana;
+            }
+            return character.Mana;
         }
     }
 }
