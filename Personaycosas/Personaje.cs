@@ -16,19 +16,6 @@ namespace ZothrasYTobias
         public int Mana { get; set; }
 
 
-        public void Carga()
-        {
-            Console.WriteLine("Ingrese el color de su personaje");
-            Color = Console.ReadLine();
-            Console.WriteLine("Ingrese la cantidad de vida que tiene su personaje");
-            Vida = int.Parse(Console.ReadLine());
-            Console.WriteLine("Ingrese la cantidad de defensa que tiene su personaje");
-            Defensa = int.Parse(Console.ReadLine());
-            Console.WriteLine("Ingrese la cantidad de fuerza que tiene su personaje");
-            Fuerza = int.Parse(Console.ReadLine());
-            Console.WriteLine("Ingrese la cantidad de mana que tiene su personaje");
-            Mana = int.Parse(Console.ReadLine());
-        }
 
         public void CambiarColor(string nuevo)
         {

@@ -11,23 +11,13 @@ namespace Personaycosas
     {
            public override int usar(Personaje character)
         {
-            Console.WriteLine("Ingrese la curacion minima de la pocion de mana");
-            Minimo = int.Parse(Console.ReadLine());
-            if (Minimo < 1)
+            int ManaPersonaje = character.Mana;
+            Random RecuperacionDeManaAletoria = new Random();
+            RecuperacionDeManaAletoria.Next(Minimo - Maximo);
+            if (RecuperacionDeManaAletoria > character.Mana)
             {
-
-                Minimo= 1;
+                character.Mana = ManaPersonaje;
             }
-            Console.WriteLine("Ingrese la curacion maxima de la pocion de mana");
-            Maximo = int.Parse(Console.ReadLine());
-            if (Maximo > Vida)
-            {
-               Maximo = Vida;
-            }
-
-            Random managen = new Random();
-            int curacionmana = managen.Next(Minimo-Maximo); 
-            return curacionmana;        
         }
     }
 }

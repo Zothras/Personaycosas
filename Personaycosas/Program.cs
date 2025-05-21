@@ -3,6 +3,9 @@ using System.Drawing;
 using ZothrasYTobias;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
+
+
+
 void carga(Personaje p)
 {
     Console.WriteLine("Ingrese el color de su personaje");
@@ -45,16 +48,7 @@ void RecibirDaño(Personaje p)
     p.Vida -= dañoquemehicieron;
     Console.WriteLine("La nueva vida de su personaje es: ");
     Console.WriteLine(" " + p.Vida);
-}
-
-void Atacar(Personaje p)
-{
-
-
-}
-
-
-Personaje p1 = new Personaje();
+}Personaje p1 = new Personaje();
 Console.WriteLine("Carga del personaje 1");
 carga(p1);
 Personaje p2 = new Personaje();
@@ -100,7 +94,30 @@ do
         case "Atacar":
             p1.Atacar(p2);
             break;
-            
+
+        case "Curar":
+
+            Console.WriteLine("Tienes dos pociones, una de vida y otra de mana, ¿Cual quieres usar?");
+            Console.WriteLine("1: Pocion de vida");
+            Console.WriteLine("2: Pocion de mana");
+            int Opcion = int.Parse(Console.ReadLine)();
+            if (Opcion = 1)
+            {
+
+            }
+            else if (Opcion = 2)
+            {
+                Console.WriteLine("Cuanto mana quieres recuperar");
+                Pocion_Mana pocion = new Pocion_Mana();
+                pociones(pocion);
+                pocion.usar(p1);
+            }
+            else
+            {
+                Console.WriteLine("No es una pocion valida");
+            }
+            break;
+
         default:
             Console.WriteLine("Hay un dicho en este planeta... 'Tonto como una piedra'. No es un cumplido -Aurelion Sol (Ingrese una opcion correcta) ");
             break;
