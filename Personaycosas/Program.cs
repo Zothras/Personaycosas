@@ -4,14 +4,32 @@ using ZothrasYTobias;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
- void pociones(Pocion pociones)
-{ 
+Pocion pocionVida()
+{
+    Pocion Vida = new Pocion_vida();
+
     Console.WriteLine("Ingrese el valor maximo");
-    pociones.Maximo = int.Parse(Console.ReadLine());
+    Vida.Maximo = int.Parse(Console.ReadLine());
     Console.WriteLine("Ingrese el valor minimo");
-    pociones.Minimo = int.Parse(Console.ReadLine());
+    Vida.Minimo = int.Parse(Console.ReadLine());
+
+    return Vida;
+}
+
+Pocion PocionMana()
+{
+    Pocion Mana = new Pocion_Mana();
+
+    Console.WriteLine("Ingrese el valor maximo");
+    Mana.Maximo = int.Parse(Console.ReadLine());
+    Console.WriteLine("Ingrese el valor minimo");
+    Mana.Minimo = int.Parse(Console.ReadLine());
+
+    return Mana;
 
 }
+
+
 
     void carga(Personaje p)
 {
@@ -19,12 +37,14 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
     p.Color = Console.ReadLine();
     Console.WriteLine("Ingrese la cantidad de vida que tiene su personaje");
     p.Vida = int.Parse(Console.ReadLine());
+    p.VidaMaxima = p.Vida;
     Console.WriteLine("Ingrese la cantidad de defensa que tiene su personaje");
     p.Defensa = int.Parse(Console.ReadLine());
     Console.WriteLine("Ingrese la cantidad de fuerza que tiene su personaje");
     p.Fuerza = int.Parse(Console.ReadLine());
     Console.WriteLine("Ingrese la cantidad de mana que tiene su personaje");
     p.Mana = int.Parse(Console.ReadLine());
+    p.ManaMaxima = p.Mana;
 }
 
 void mostramela(Personaje p)
@@ -90,6 +110,7 @@ do
     string swit = Console.ReadLine();
     switch (swit)
     {
+
         case "Cambiar color":
             Console.WriteLine("elija otro color");
             p1.CambiarColor(Console.ReadLine());
@@ -103,25 +124,51 @@ do
             break;
 
         case "Curar":
-
-            Console.WriteLine("Tienes dos pociones, una de vida y otra de mana, ¿Cual quieres usar?");
-            Console.WriteLine("1: Pocion de vida");
-            Console.WriteLine("2: Pocion de mana");
-            int Opcion = int.Parse(Console.ReadLine());
-            if (Opcion == 1)
+            Console.WriteLine("Que personaje quieres usar");
+            Console.WriteLine("1:p1");
+            Console.WriteLine("2:p2");
+            int opcion = int.Parse(Console.ReadLine());
+            if(opcion == 1)
             {
-
+                Console.WriteLine("Tienes dos pociones, una de vida y otra de mana, ¿Cual quieres usar?");
+                Console.WriteLine("1: Pocion de vida");
+                Console.WriteLine("2: Pocion de mana");
+                int Opcion = int.Parse(Console.ReadLine());
+                if (Opcion == 1)
+                {
+                    pocionVida().usar(p1);
+                }
+                else if (Opcion == 2)
+                {
+                    PocionMana().usar(p1);
+                }
+                else
+                {
+                    Console.WriteLine("No es una pocion valida");
+                }
             }
-            else if (Opcion == 2)
+            else if (opcion == 2)
             {
-                Console.WriteLine("Cuanto mana quieres recuperar");
-                Pocion_Mana pocion = new Pocion_Mana();
-                pociones(pocion);
-                pocion.usar(p1);
+                Console.WriteLine("Tienes dos pociones, una de vida y otra de mana, ¿Cual quieres usar?");
+                Console.WriteLine("1: Pocion de vida");
+                Console.WriteLine("2: Pocion de mana");
+                int Opcion = int.Parse(Console.ReadLine());
+                if (Opcion == 1)
+                {
+                    pocionVida().usar(p2);
+                }
+                else if (Opcion == 2)
+                {
+                    PocionMana().usar(p2);
+                }
+                else
+                {
+                    Console.WriteLine("No es una pocion valida");
+                }
             }
             else
             {
-                Console.WriteLine("No es una pocion valida");
+                Console.WriteLine("No es un personaje valido");
             }
             break;
 

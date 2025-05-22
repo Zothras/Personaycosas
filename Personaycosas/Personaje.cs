@@ -11,9 +11,11 @@ namespace ZothrasYTobias
     {
         public string Color { get; set; }
         public int Vida { get; set; }
+        public int VidaMaxima { get; set; }
         public int Defensa { get; set; }
         public int Fuerza { get; set; }
         public int Mana { get; set; }
+        public int ManaMaxima { get; set; }
 
 
 

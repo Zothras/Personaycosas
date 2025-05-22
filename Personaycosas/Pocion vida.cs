@@ -11,18 +11,23 @@ namespace Personaycosas
     {
         public override int usar(Personaje character)
         {
-            int VidaPersonaje = character.Vida;
+            
+            int VidaPersonaje = character.VidaMaxima;
             Random CuracionAleateoria = new Random();
-            int generadordevida = CuracionAleateoria.Next(Minimo - Maximo);
-            if (generadordevida>character.Vida)
+            int generadordevida = CuracionAleateoria.Next(Minimo, Maximo);
+            if (generadordevida>character.VidaMaxima)
             {
                 character.Vida = VidaPersonaje;
             }
             else 
             { 
                 character.Vida += generadordevida;
+                if (character.Vida > character.VidaMaxima)
+                {
+                    character.Vida = VidaPersonaje;
+                }
             }
-                return character.Vida;
+            return character.Vida;
         }
     }
 }
