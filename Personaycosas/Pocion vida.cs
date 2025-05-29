@@ -28,6 +28,11 @@ namespace Personaycosas
                 }
             }
             return character.Vida;
+
+        }
+        public override string ToString()
+        {
+            return "Pocion de vida";
         }
     }
 }

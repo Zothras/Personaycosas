@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Personaycosas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -16,8 +17,7 @@ namespace ZothrasYTobias
         public int Fuerza { get; set; }
         public int Mana { get; set; }
         public int ManaMaxima { get; set; }
-
-
+        public Inventario inventario { get; set; }
 
         public void CambiarColor(string nuevo)
         {

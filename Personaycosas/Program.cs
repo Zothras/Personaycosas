@@ -7,11 +7,15 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 Pocion pocionVida()
 {
     Pocion Vida = new Pocion_vida();
-
-    Console.WriteLine("Ingrese el valor maximo");
-    Vida.Maximo = int.Parse(Console.ReadLine());
-    Console.WriteLine("Ingrese el valor minimo");
-    Vida.Minimo = int.Parse(Console.ReadLine());
+    
+   
+    
+        Console.WriteLine("Ingrese el valor maximo vida");
+        Vida.Maximo = int.Parse(Console.ReadLine());
+        Console.WriteLine("Ingrese el valor minimo vida");
+        Vida.Minimo = int.Parse(Console.ReadLine());
+    
+    
 
     return Vida;
 }
@@ -20,10 +24,13 @@ Pocion PocionMana()
 {
     Pocion Mana = new Pocion_Mana();
 
-    Console.WriteLine("Ingrese el valor maximo");
-    Mana.Maximo = int.Parse(Console.ReadLine());
-    Console.WriteLine("Ingrese el valor minimo");
-    Mana.Minimo = int.Parse(Console.ReadLine());
+    
+        Console.WriteLine("Ingrese el valor maximo mana");
+        Mana.Maximo = int.Parse(Console.ReadLine());
+        Console.WriteLine("Ingrese el valor minimo mana");
+        Mana.Minimo = int.Parse(Console.ReadLine());
+    
+       
 
     return Mana;
 
@@ -33,6 +40,7 @@ Pocion PocionMana()
 
     void carga(Personaje p)
 {
+    
     Console.WriteLine("Ingrese el color de su personaje");
     p.Color = Console.ReadLine();
     Console.WriteLine("Ingrese la cantidad de vida que tiene su personaje");
@@ -45,15 +53,23 @@ Pocion PocionMana()
     Console.WriteLine("Ingrese la cantidad de mana que tiene su personaje");
     p.Mana = int.Parse(Console.ReadLine());
     p.ManaMaxima = p.Mana;
+    p.inventario = new Inventario();
+    p.inventario.AgregarItem(pocionVida());
+    p.inventario.AgregarItem(PocionMana());
 }
 
 void mostramela(Personaje p)
 {
+
     Console.WriteLine("Color: " + p.Color);
     Console.WriteLine("Vida: " + p.Vida);
     Console.WriteLine("Defensa: " + p.Defensa);
     Console.WriteLine("Fuerza: " + p.Fuerza);
     Console.WriteLine("Mana: " + p.Mana);
+    foreach (var Items in p.inventario.Items)
+    {
+        Console.WriteLine($"{Items.ToString()}");
+    }
 
 }
 
@@ -76,17 +92,22 @@ void RecibirDaño(Personaje p)
     Console.WriteLine("La nueva vida de su personaje es: ");
     Console.WriteLine(" " + p.Vida);
 }Personaje p1 = new Personaje();
-Console.WriteLine("Carga del personaje 1");
+
+
+
+
+Console.WriteLine("Cree su primer personaje");
 carga(p1);
 Personaje p2 = new Personaje();
-Console.WriteLine("Carga del personaje 2");
+Console.WriteLine("Cree su segundo personaje");
 carga(p2);
 Console.Clear();
-Console.WriteLine("Datos del personaje 1: ");
+Console.WriteLine("Datos del personaje uno: ");
 mostramela(p1);
 Console.WriteLine("-----------");
-Console.WriteLine("Datos del personaje 2: ");
+Console.WriteLine("Datos del personaje dos: ");
 mostramela(p2);
+
 
 Console.WriteLine("Escriba la accion que quiera hacer a continuacion teniendo en cuenta las distintas opciones, sus opciones son: ");
 Console.WriteLine("1: Cambiar Color ");
@@ -136,11 +157,32 @@ do
                 int Opcion = int.Parse(Console.ReadLine());
                 if (Opcion == 1)
                 {
-                    pocionVida().usar(p1);
+
+                    foreach (var PocionVidaP1 in p1.inventario.Items)
+                    {
+
+                        p1.inventario.QuitarItem(PocionVidaP1);
+                    }
+                    Console.ReadKey();
                 }
                 else if (Opcion == 2)
                 {
-                    PocionMana().usar(p1);
+                    
+                        var pocionMana = p1.inventario.Items
+                        .OfType<Pocion_Mana>()
+                         .FirstOrDefault();
+
+                        if (pocionMana != null)
+                        {
+                            pocionMana.usar(p1);
+                            p1.inventario.QuitarItem(pocionMana);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No tienes poción de maná.");
+                        }
+                        Console.ReadKey();
+                    
                 }
                 else
                 {
@@ -155,11 +197,42 @@ do
                 int Opcion = int.Parse(Console.ReadLine());
                 if (Opcion == 1)
                 {
-                    pocionVida().usar(p2);
+                    
+                        var pocionVida2 = p2.inventario.Items
+                        .OfType<Pocion_vida>()
+                         .FirstOrDefault();
+
+                        if (pocionVida2 != null)
+                        {
+                            pocionVida2.usar(p2);
+                            p2.inventario.QuitarItem(pocionVida2);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No tienes poción de vida.");
+                        }
+                    Console.ReadKey();
                 }
                 else if (Opcion == 2)
                 {
-                    PocionMana().usar(p2);
+                   
+                        var pocionMana = p2.inventario.Items
+                        .OfType<Pocion_Mana>()
+                         .FirstOrDefault();
+
+                        if (pocionMana != null)
+                        {
+                            pocionMana.usar(p2);
+                            p2.inventario.QuitarItem(pocionMana);
+                        }
+                        else
+                        {
+                            Console.WriteLine("No tienes poción de maná.");
+                        }
+                    Console.ReadKey();
+
+                    p2.inventario.QuitarItem(PocionMana());
+                   
                 }
                 else
                 {

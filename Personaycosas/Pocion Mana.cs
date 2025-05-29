@@ -7,9 +7,9 @@ using ZothrasYTobias;
 
 namespace Personaycosas
 {
-    public class Pocion_Mana:Pocion
+    public class Pocion_Mana : Pocion
     {
-           public override int usar(Personaje character)
+        public override int usar(Personaje character)
         {
             int ManaPersonaje = character.ManaMaxima;
             Random RecuperacionDeManaAletoria = new Random();
@@ -23,10 +23,15 @@ namespace Personaycosas
                 character.Mana += generadordemana;
                 if (character.Mana > character.ManaMaxima)
                 {
-                    character.Mana= ManaPersonaje;
+                    character.Mana = ManaPersonaje;
                 }
             }
+            
             return character.Mana;
+        }
+        public override string ToString()
+        {
+            return "Pocion de mana";
         }
     }
 }

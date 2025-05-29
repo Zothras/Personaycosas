@@ -7,11 +7,9 @@ using ZothrasYTobias;
 
 namespace Personaycosas
 {
-    public abstract class Pocion:Item
+    public abstract class Item
     {
-        public int Minimo { get; set; }
-        public int Maximo { get; set; }
-
-
+        public Inventario? inventar { get; set; }
+        public abstract int usar(Personaje character);
     }
 }
