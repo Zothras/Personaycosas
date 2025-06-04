@@ -152,6 +152,35 @@ do
             {
                 case 1:
 
+                    {
+                        Console.WriteLine("Tienes dos pociones, una de vida y otra de mana, ¿Cual quieres usar?");
+                        Console.WriteLine("1: Pocion de vida");
+                        Console.WriteLine("2: Pocion de mana");
+                        int Opcion = int.Parse(Console.ReadLine());
+                        if (Opcion == 1)
+                        {
+                            Item pocionVida1 = null;
+                            foreach (var item in p1.inventario.Items)
+                            {
+                                if (item is Pocion_vida)
+                                {
+                                    pocionVida1 = item;
+                                    break;
+                                }
+                            }
+                            if (pocionVida != null)
+                            {
+                                ((Pocion_vida)pocionVida1).usar(p1);
+                                p1.inventario.QuitarItem(pocionVida1);
+                            }
+                            else
+                            {
+                                Console.WriteLine("No tienes poción de vida.");
+                            }
+                        }
+
+                    }
+
                     break;
             }
 
