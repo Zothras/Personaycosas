@@ -60,17 +60,16 @@ Pocion PocionMana()
 
 void mostramela(Personaje p)
 {
-
     Console.WriteLine("Color: " + p.Color);
     Console.WriteLine("Vida: " + p.Vida);
     Console.WriteLine("Defensa: " + p.Defensa);
     Console.WriteLine("Fuerza: " + p.Fuerza);
     Console.WriteLine("Mana: " + p.Mana);
-    foreach (var Items in p.inventario.Items)
+    Console.WriteLine("Inventario:");
+    foreach (var item in p.inventario.Items)
     {
-        Console.WriteLine($"{Items.ToString()}");
+        Console.WriteLine($"- {item}");
     }
-
 }
 
 void CambioDeColor(Personaje p)
@@ -149,101 +148,13 @@ do
             Console.WriteLine("1:p1");
             Console.WriteLine("2:p2");
             int opcion = int.Parse(Console.ReadLine());
-            if(opcion == 1)
+            switch (opcion)
             {
-                Console.WriteLine("Tienes dos pociones, una de vida y otra de mana, ¿Cual quieres usar?");
-                Console.WriteLine("1: Pocion de vida");
-                Console.WriteLine("2: Pocion de mana");
-                int Opcion = int.Parse(Console.ReadLine());
-                if (Opcion == 1)
-                {
+                case 1:
 
-                    foreach (var PocionVidaP1 in p1.inventario.Items)
-                    {
-
-                        p1.inventario.QuitarItem(PocionVidaP1);
-                    }
-                    Console.ReadKey();
-                }
-                else if (Opcion == 2)
-                {
-                    
-                        var pocionMana = p1.inventario.Items
-                        .OfType<Pocion_Mana>()
-                         .FirstOrDefault();
-
-                        if (pocionMana != null)
-                        {
-                            pocionMana.usar(p1);
-                            p1.inventario.QuitarItem(pocionMana);
-                        }
-                        else
-                        {
-                            Console.WriteLine("No tienes poción de maná.");
-                        }
-                        Console.ReadKey();
-                    
-                }
-                else
-                {
-                    Console.WriteLine("No es una pocion valida");
-                }
+                    break;
             }
-            else if (opcion == 2)
-            {
-                Console.WriteLine("Tienes dos pociones, una de vida y otra de mana, ¿Cual quieres usar?");
-                Console.WriteLine("1: Pocion de vida");
-                Console.WriteLine("2: Pocion de mana");
-                int Opcion = int.Parse(Console.ReadLine());
-                if (Opcion == 1)
-                {
-                    
-                        var pocionVida2 = p2.inventario.Items
-                        .OfType<Pocion_vida>()
-                         .FirstOrDefault();
 
-                        if (pocionVida2 != null)
-                        {
-                            pocionVida2.usar(p2);
-                            p2.inventario.QuitarItem(pocionVida2);
-                        }
-                        else
-                        {
-                            Console.WriteLine("No tienes poción de vida.");
-                        }
-                    Console.ReadKey();
-                }
-                else if (Opcion == 2)
-                {
-                   
-                        var pocionMana = p2.inventario.Items
-                        .OfType<Pocion_Mana>()
-                         .FirstOrDefault();
-
-                        if (pocionMana != null)
-                        {
-                            pocionMana.usar(p2);
-                            p2.inventario.QuitarItem(pocionMana);
-                        }
-                        else
-                        {
-                            Console.WriteLine("No tienes poción de maná.");
-                        }
-                    Console.ReadKey();
-
-                    p2.inventario.QuitarItem(PocionMana());
-                   
-                }
-                else
-                {
-                    Console.WriteLine("No es una pocion valida");
-                }
-            }
-            else
-            {
-                Console.WriteLine("No es un personaje valido");
-            }
-            break;
 
         default:
             Console.WriteLine("Hay un dicho en este planeta... 'Tonto como una piedra'. No es un cumplido -Aurelion Sol (Ingrese una opcion correcta) ");
