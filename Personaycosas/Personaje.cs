@@ -18,6 +18,10 @@ namespace ZothrasYTobias
         public int Mana { get; set; }
         public int ManaMaxima { get; set; }
         public Inventario inventario { get; set; }
+        public int Casco { get; set; }
+        public int Pechera { get; set; }
+        public int Grebas { get; set; }
+        public int Espada { get; set; }
 
         public void CambiarColor(string nuevo)
         {

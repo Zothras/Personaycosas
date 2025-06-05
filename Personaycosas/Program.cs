@@ -4,6 +4,8 @@ using ZothrasYTobias;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
+
+
 Pocion pocionVida()
 {
     Pocion Vida = new Pocion_vida();
@@ -39,8 +41,11 @@ Pocion PocionMana()
 
 
     void carga(Personaje p)
-{
-    
+{ Casco casco = new Casco();
+    Pechera pechera = new Pechera();
+    Grebas grebas = new Grebas();
+    Espada espada = new Espada();
+
     Console.WriteLine("Ingrese el color de su personaje");
     p.Color = Console.ReadLine();
     Console.WriteLine("Ingrese la cantidad de vida que tiene su personaje");
@@ -54,8 +59,13 @@ Pocion PocionMana()
     p.Mana = int.Parse(Console.ReadLine());
     p.ManaMaxima = p.Mana;
     p.inventario = new Inventario();
+    p.inventario.AgregarItem(casco);
+    p.inventario.AgregarItem(pechera);
+    p.inventario.AgregarItem(grebas);
+    p.inventario.AgregarItem(espada);
     p.inventario.AgregarItem(pocionVida());
-    p.inventario.AgregarItem(PocionMana());
+    p.inventario.AgregarItem (PocionMana());
+
 }
 
 void mostramela(Personaje p)
@@ -70,8 +80,9 @@ void mostramela(Personaje p)
     {
         Console.WriteLine($"- {item}");
     }
-}
 
+
+}
 void CambioDeColor(Personaje p)
 {
     string colornuevo;
@@ -126,7 +137,7 @@ do
     Console.WriteLine("1: Cambiar color");
     Console.WriteLine("2: Recibir daño");
     Console.WriteLine("3: Atacar");
-    Console.WriteLine("4: Curar");
+    Console.WriteLine("4: Inventario");
     string swit = Console.ReadLine();
     switch (swit)
     {
@@ -143,14 +154,50 @@ do
             p1.Atacar(p2);
             break;
 
-        case "Curar":
+        case "Inventario":
             Console.WriteLine("Que personaje quieres usar");
-            Console.WriteLine("1:p1");
-            Console.WriteLine("2:p2");
-            int opcion = int.Parse(Console.ReadLine());
+            Console.WriteLine("1: Personaje uno");
+            Console.WriteLine("2: Personaje dos");
+            string opcion = Console.ReadLine();
+            Console.Clear();
             switch (opcion)
             {
-                case 1:
+                case "Personaje uno":
+
+                    int i = 0;
+                    foreach (var item in p1.inventario.Items)
+                    {
+                        Console.WriteLine($"{i++} {item}");
+                    }
+                    int seleccionado = int.Parse(Console.ReadLine());
+                    Item itemSeleccionado = p1.inventario.Items[seleccionado];
+                    if (itemSeleccionado is IUsable usable)
+                    {
+                        usable.usar(p1);
+                    }
+                    Console.ReadKey();
+
+                    break;
+
+
+            }
+          break;
+        case "Personaje dos":
+            Console.WriteLine("A donde quieres acceder, armadura o pociones?");
+            Console.WriteLine("1: Armadura");
+            Console.WriteLine("2: Objetos");
+            string opcion3 = Console.ReadLine();
+            switch (opcion3)
+            {
+                case "Armadura":
+
+                    break;
+
+                case "Objetos":
+
+
+
+
 
                     {
                         Console.WriteLine("Tienes dos pociones, una de vida y otra de mana, ¿Cual quieres usar?");
@@ -159,35 +206,55 @@ do
                         int Opcion = int.Parse(Console.ReadLine());
                         if (Opcion == 1)
                         {
-                            Item pocionVida1 = null;
-                            foreach (var item in p1.inventario.Items)
+                            Item pocionVida2 = null;
+                            foreach (var item in p2.inventario.Items )
                             {
                                 if (item is Pocion_vida)
                                 {
-                                    pocionVida1 = item;
+                                    pocionVida2 = item;
                                     break;
                                 }
                             }
-                            if (pocionVida != null)
+                            if (pocionVida2 != null)
                             {
-                                ((Pocion_vida)pocionVida1).usar(p1);
-                                p1.inventario.QuitarItem(pocionVida1);
+                                int curado = ((Pocion_vida)pocionVida2).usar(p2);
+                                Console.WriteLine($"¡Se curó {curado} puntos de vida!");
+                                p1.inventario.QuitarItem(pocionVida2);
                             }
                             else
                             {
                                 Console.WriteLine("No tienes poción de vida.");
                             }
                         }
-
+                        if (Opcion == 2)
+                        {
+                            Item pocionMana2 = null;
+                            foreach (var item in p2.inventario.Items )
+                            {
+                                if (item is Pocion_Mana)
+                                {
+                                    pocionMana2 = item;
+                                    break;
+                                }
+                            }
+                            if (pocionMana2 != null)
+                            {
+                                int curado = ((Pocion_vida)pocionMana2).usar(p2);
+                                Console.WriteLine($"¡Se curó {curado} puntos de vida!");
+                                p1.inventario.QuitarItem (pocionMana2);
+                            }
+                            else
+                            {
+                                Console.WriteLine("No tienes poción de mana.");
+                            }
+                        }
                     }
-
                     break;
             }
-
-
-        default:
-            Console.WriteLine("Hay un dicho en este planeta... 'Tonto como una piedra'. No es un cumplido -Aurelion Sol (Ingrese una opcion correcta) ");
             break;
+
+
+
     }
     if (p2.Vida == 0)
     {

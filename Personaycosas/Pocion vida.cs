@@ -9,27 +9,21 @@ namespace Personaycosas
 {
     public class Pocion_vida:Pocion
     {
-        public override int usar(Personaje character)
+
+
+            public override int usar(Personaje character)
         {
-            
-            int VidaPersonaje = character.VidaMaxima;
-            Random CuracionAleateoria = new Random();
-            int generadordevida = CuracionAleateoria.Next(Minimo, Maximo);
-            if (generadordevida>character.VidaMaxima)
-            {
-                character.Vida = VidaPersonaje;
-            }
-            else 
-            { 
-                character.Vida += generadordevida;
-                if (character.Vida > character.VidaMaxima)
-                {
-                    character.Vida = VidaPersonaje;
-                }
-            }
-            return character.Vida;
+            Random curacionAleatoria = new Random();
+            int generadordevida = curacionAleatoria.Next(Minimo, Maximo);
+            int vidaAntes = character.Vida;
+            character.Vida += generadordevida;
+            if (character.Vida > character.VidaMaxima)
+                character.Vida = character.VidaMaxima;
+
+            return character.Vida - vidaAntes;
 
         }
+
         public override string ToString()
         {
             return "Pocion de vida";

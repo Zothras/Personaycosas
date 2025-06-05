@@ -7,27 +7,17 @@ using ZothrasYTobias;
 
 namespace Personaycosas
 {
-    public class Pocion_Mana : Pocion
+    public class Pocion_Mana : Pocion, IUsable
     {
         public override int usar(Personaje character)
         {
-            int ManaPersonaje = character.ManaMaxima;
-            Random RecuperacionDeManaAletoria = new Random();
-            int generadordemana = RecuperacionDeManaAletoria.Next(Minimo, Maximo);
-            if (generadordemana > character.ManaMaxima)
-            {
-                character.Mana = ManaPersonaje;
-            }
-            else
-            {
-                character.Mana += generadordemana;
-                if (character.Mana > character.ManaMaxima)
-                {
-                    character.Mana = ManaPersonaje;
-                }
-            }
-            
-            return character.Mana;
+            Random regeneracionaleatoria = new Random();
+            int generadordemana = regeneracionaleatoria.Next(Minimo, Maximo);
+            int manaantes = character.Vida;
+            character.Vida += generadordemana;
+            if (character.Vida > character.ManaMaxima)
+                character.Vida = character.ManaMaxima;
+            return character.Vida - manaantes;
         }
         public override string ToString()
         {

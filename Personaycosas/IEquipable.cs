@@ -7,9 +7,10 @@ using ZothrasYTobias;
 
 namespace Personaycosas
 {
-    public abstract class Item
+    public interface IEquipable
     {
-        public Inventario? inventar { get; set; }
-
+        void Equipar(Personaje character);
+         
+        void Desequipar(Personaje character);
     }
 }

@@ -7,11 +7,13 @@ using ZothrasYTobias;
 
 namespace Personaycosas
 {
-    public abstract class Pocion:Item
+    public abstract class Pocion:Item, IUsable
     {
+            
         public int Minimo { get; set; }
         public int Maximo { get; set; }
-
-
+        public abstract int usar(Personaje character);
     }
+
+
 }

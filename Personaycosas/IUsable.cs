@@ -7,9 +7,8 @@ using ZothrasYTobias;
 
 namespace Personaycosas
 {
-    public abstract class Item
+    public interface IUsable
     {
-        public Inventario? inventar { get; set; }
-
+        public abstract int usar(Personaje character);
     }
 }
