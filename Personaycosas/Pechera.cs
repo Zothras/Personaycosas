@@ -9,29 +9,27 @@ namespace Personaycosas
 {
     internal class Pechera:Equipo
     {
-        public int PecheraDefensa { get; set; } = 20;
+        public int PecheraDefensa { get; set; } = 30;
 
 
         public override void Equipar(Personaje character)
         {
-
-            if (character.Pechera == null)
-            {
-                character.Pechera = PecheraDefensa;
-                Equipado = true;
-                character.Defensa += PecheraDefensa;
+            character.Pechera = PecheraDefensa;
+            Equipado = true;
+            character.Defensa += PecheraDefensa;
 
 
-            }
-            else
-            {
-            }
         }
 
         public override void Desequipar(Personaje character)
         {
-
+            if (Equipado == true)
+            {
+                character.Defensa -= PecheraDefensa;
+                Equipado = false;
+            }
         }
+
         public override string ToString()
         {
             return "Pechera";

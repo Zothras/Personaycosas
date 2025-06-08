@@ -1,47 +1,101 @@
 ﻿using Personaycosas;
-using System.Drawing;
 using ZothrasYTobias;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
+//Hola. Este es mi codigo, hoy estamos a 7/6/2025, me pondre a hacer cambios que me parecen interesantes para mejor mi logica como programador, es... algo de pasion total todo esto
 
+Personaje p1 = new Personaje();
+Personaje p2 = new Personaje();
 
+void MostrarEstadoGeneral()
+{
+    Console.WriteLine("Personaje 1");
+    mostramela(p1);
+    Console.WriteLine("-----------");
+    Console.WriteLine("Personaje 2");
+    mostramela(p2);
+    Console.WriteLine();
+}
 
-Pocion pocionVida()
+void UsoDeObjetos(Personaje p)
+{
+    int indiceItem = 0;
+    foreach (var item in p.inventario.Items)
+    {
+        Console.WriteLine($"{indiceItem++} {item}");
+    }
+    int itemSeleccionadoIndice = int.Parse(Console.ReadLine());
+    Item itemSeleccionado = p1.inventario.Items[itemSeleccionadoIndice];
+    if (itemSeleccionado is IUsable usable)
+    {
+        int restaurado = usable.usar(p);
+        Console.WriteLine($"¡Se restauraron {restaurado} puntos!");
+        Console.WriteLine("Tu pocion quedo vacia pero tal vez es posible encontrar otra o llenarla... decides tirar el frasco vacio de todas maneras.");
+        p.inventario.QuitarItem(itemSeleccionado);
+    }
+
+    if (itemSeleccionado is IEquipable equipable && itemSeleccionado is Equipo equipo)
+    {
+        Console.WriteLine("Deseas Equipar o Desequipar un objeto?");
+        string OpcionEquipable = Console.ReadLine();
+        if (OpcionEquipable == "Equipar")
+        {
+            if (equipo.Equipado == false)
+            {
+                equipable.Equipar(p);
+                Console.WriteLine("Te sientes un poco mas fuerte...");
+            }
+            else
+            {
+               Console.WriteLine("Ya tienes esta pieza de armadura equipada. Intenta con otra.");
+
+            }
+
+        }
+        else
+        {
+            if (equipo.Equipado == true)
+            {
+                equipable.Desequipar(p);
+                Console.WriteLine("Te sientes mas ligero, pero ciertamente mas desprotegido...");
+            }
+            else
+            {
+                Console.WriteLine("Ya tienes esta pieza de armadura equipada. Intenta con una la cual te hayas equipado anteriormente.");
+            }
+
+        }
+
+    }
+}
+Pocion CrearPocion(string Tipo)
 {
     Pocion Vida = new Pocion_vida();
-    
-   
-    
-        Console.WriteLine("Ingrese el valor maximo vida");
-        Vida.Maximo = int.Parse(Console.ReadLine());
+
+    Pocion pocion;
+    if (Tipo == "vida")
+    {
+        pocion = new Pocion_vida();
         Console.WriteLine("Ingrese el valor minimo vida");
-        Vida.Minimo = int.Parse(Console.ReadLine());
-    
-    
-
-    return Vida;
-}
-
-Pocion PocionMana()
-{
-    Pocion Mana = new Pocion_Mana();
-
-    
-        Console.WriteLine("Ingrese el valor maximo mana");
-        Mana.Maximo = int.Parse(Console.ReadLine());
+    }
+    else
+    {
+        pocion = new Pocion_Mana();
         Console.WriteLine("Ingrese el valor minimo mana");
-        Mana.Minimo = int.Parse(Console.ReadLine());
-    
-       
+    }
 
-    return Mana;
+    pocion.Minimo = int.Parse(Console.ReadLine());
+    if (Tipo == "vida")
+        Console.WriteLine("Ingrese el valor maximo vida");
+    else
+        Console.WriteLine("Ingrese el valor maximo mana");
+    pocion.Maximo = int.Parse(Console.ReadLine());
 
+    return pocion;
 }
 
-
-
-    void carga(Personaje p)
-{ Casco casco = new Casco();
+void carga(Personaje p)
+{
+    Casco casco = new Casco();
     Pechera pechera = new Pechera();
     Grebas grebas = new Grebas();
     Espada espada = new Espada();
@@ -63,9 +117,8 @@ Pocion PocionMana()
     p.inventario.AgregarItem(pechera);
     p.inventario.AgregarItem(grebas);
     p.inventario.AgregarItem(espada);
-    p.inventario.AgregarItem(pocionVida());
-    p.inventario.AgregarItem (PocionMana());
-
+    p.inventario.AgregarItem(CrearPocion("vida"));
+    p.inventario.AgregarItem(CrearPocion("mana"));
 }
 
 void mostramela(Personaje p)
@@ -80,9 +133,8 @@ void mostramela(Personaje p)
     {
         Console.WriteLine($"- {item}");
     }
-
-
 }
+
 void CambioDeColor(Personaje p)
 {
     string colornuevo;
@@ -91,6 +143,7 @@ void CambioDeColor(Personaje p)
     colornuevo = Console.ReadLine();
     p.Color = colornuevo;
     Console.WriteLine("Su nuevo color es: " + p.Color);
+
 }
 
 void RecibirDaño(Personaje p)
@@ -101,165 +154,101 @@ void RecibirDaño(Personaje p)
     p.Vida -= dañoquemehicieron;
     Console.WriteLine("La nueva vida de su personaje es: ");
     Console.WriteLine(" " + p.Vida);
-}Personaje p1 = new Personaje();
+}
 
+//CARGA DE PERSONAJE--------------------------------------------------------------------------------------------
 
 
 
 Console.WriteLine("Cree su primer personaje");
 carga(p1);
-Personaje p2 = new Personaje();
+Console.Clear();
 Console.WriteLine("Cree su segundo personaje");
 carga(p2);
 Console.Clear();
-Console.WriteLine("Datos del personaje uno: ");
-mostramela(p1);
-Console.WriteLine("-----------");
-Console.WriteLine("Datos del personaje dos: ");
-mostramela(p2);
-
-
-Console.WriteLine("Escriba la accion que quiera hacer a continuacion teniendo en cuenta las distintas opciones, sus opciones son: ");
-Console.WriteLine("1: Cambiar Color ");
-Console.WriteLine("2: Recibir Daño ");
-Console.WriteLine("3: Atacar ");
-Console.WriteLine("4: Curar ");
-string accion = Console.ReadLine();
-
 do
 {
+    MostrarEstadoGeneral();
+    Console.WriteLine("Presiona cualquier tecla para continuar...");
+    Console.ReadKey();
     Console.Clear();
-    Console.WriteLine("Personaje 1");
-    mostramela(p1);
-    Console.WriteLine("Personaje 2");
-    mostramela(p2);
-    Console.WriteLine("ingrese una opcion");
+    Console.WriteLine("Escriba la acción que quiera hacer a continuación teniendo en cuenta las distintas opciones, sus opciones son:");
     Console.WriteLine("1: Cambiar color");
     Console.WriteLine("2: Recibir daño");
     Console.WriteLine("3: Atacar");
     Console.WriteLine("4: Inventario");
-    string swit = Console.ReadLine();
-    switch (swit)
-    {
+    string menuPrincipalOpcion = Console.ReadLine();
 
+    switch (menuPrincipalOpcion)
+    {
         case "Cambiar color":
-            Console.WriteLine("elija otro color");
+            Console.Clear();
+            Console.WriteLine("Elija otro color");
             p1.CambiarColor(Console.ReadLine());
+            Console.WriteLine("Color cambiado.");
+            Console.WriteLine("Presiona cualquier tecla para continuar...");
+            Console.ReadKey();
+            Console.Clear();
             break;
+
         case "Recibir daño":
-            Console.WriteLine("ingrese el daño recibido");
+            Console.Clear();
+            Console.WriteLine("Ingrese el daño recibido");
             p1.RecibirDaño(int.Parse(Console.ReadLine()));
+            Console.WriteLine("Presiona cualquier tecla para continuar...");
+            Console.ReadKey();
+            Console.Clear();
             break;
+
         case "Atacar":
-            p1.Atacar(p2);
+            Console.Clear();
+            int daño = p1.Atacar(p2);
+            if (daño > 0)
+                Console.WriteLine($"¡Atacaste e hiciste {daño} de daño!");
+            else
+                Console.WriteLine("El ataque no fue suficiente para superar la defensa.");
+            MostrarEstadoGeneral();
+            Console.WriteLine("Presiona cualquier tecla para continuar...");
+            Console.ReadKey();
+            Console.Clear();
             break;
 
         case "Inventario":
-            Console.WriteLine("Que personaje quieres usar");
+            Console.Clear();
+            MostrarEstadoGeneral();
+            Console.WriteLine("¿Qué personaje quieres usar?");
             Console.WriteLine("1: Personaje uno");
             Console.WriteLine("2: Personaje dos");
-            string opcion = Console.ReadLine();
+            string menuInventarioPersonaje = Console.ReadLine();
             Console.Clear();
-            switch (opcion)
+
+            switch (menuInventarioPersonaje)
             {
                 case "Personaje uno":
-
-                    int i = 0;
-                    foreach (var item in p1.inventario.Items)
-                    {
-                        Console.WriteLine($"{i++} {item}");
-                    }
-                    int seleccionado = int.Parse(Console.ReadLine());
-                    Item itemSeleccionado = p1.inventario.Items[seleccionado];
-                    if (itemSeleccionado is IUsable usable)
-                    {
-                        usable.usar(p1);
-                    }
+                    UsoDeObjetos(p1);
+                    Console.WriteLine("Presiona cualquier tecla para continuar...");
                     Console.ReadKey();
-
-                    break;
-
-
-            }
-          break;
-        case "Personaje dos":
-            Console.WriteLine("A donde quieres acceder, armadura o pociones?");
-            Console.WriteLine("1: Armadura");
-            Console.WriteLine("2: Objetos");
-            string opcion3 = Console.ReadLine();
-            switch (opcion3)
-            {
-                case "Armadura":
-
-                    break;
-
-                case "Objetos":
-
-
-
-
-
-                    {
-                        Console.WriteLine("Tienes dos pociones, una de vida y otra de mana, ¿Cual quieres usar?");
-                        Console.WriteLine("1: Pocion de vida");
-                        Console.WriteLine("2: Pocion de mana");
-                        int Opcion = int.Parse(Console.ReadLine());
-                        if (Opcion == 1)
-                        {
-                            Item pocionVida2 = null;
-                            foreach (var item in p2.inventario.Items )
-                            {
-                                if (item is Pocion_vida)
-                                {
-                                    pocionVida2 = item;
-                                    break;
-                                }
-                            }
-                            if (pocionVida2 != null)
-                            {
-                                int curado = ((Pocion_vida)pocionVida2).usar(p2);
-                                Console.WriteLine($"¡Se curó {curado} puntos de vida!");
-                                p1.inventario.QuitarItem(pocionVida2);
-                            }
-                            else
-                            {
-                                Console.WriteLine("No tienes poción de vida.");
-                            }
-                        }
-                        if (Opcion == 2)
-                        {
-                            Item pocionMana2 = null;
-                            foreach (var item in p2.inventario.Items )
-                            {
-                                if (item is Pocion_Mana)
-                                {
-                                    pocionMana2 = item;
-                                    break;
-                                }
-                            }
-                            if (pocionMana2 != null)
-                            {
-                                int curado = ((Pocion_vida)pocionMana2).usar(p2);
-                                Console.WriteLine($"¡Se curó {curado} puntos de vida!");
-                                p1.inventario.QuitarItem (pocionMana2);
-                            }
-                            else
-                            {
-                                Console.WriteLine("No tienes poción de mana.");
-                            }
-                        }
-                    }
+                    Console.Clear();
                     break;
             }
             break;
 
+        case "Personaje dos":
+            UsoDeObjetos(p2);
+            Console.WriteLine("Presiona cualquier tecla para continuar...");
+            Console.ReadKey();
+            Console.Clear();
 
-
+            break;
     }
+
     if (p2.Vida == 0)
     {
-        Console.WriteLine("Ganaste");
+        Console.WriteLine("Has vencido a tu enemigo. Tampoco era muy fuerte que digamos,... felicidades.");
+        Console.WriteLine("Presiona cualquier tecla para salir...");
+        Console.ReadKey();
     }
-} while (p2.Vida != 0);
+
+} while (p2.Vida !>= 0);
 
 Console.ReadKey();

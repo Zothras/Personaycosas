@@ -9,28 +9,25 @@ namespace Personaycosas
 {
     public class Casco : Equipo
     {
-        public int CascoDefensa { get; set; } = 10;
+        public int CascoDefensa { get; set; } = 15;
 
 
         public override void Equipar(Personaje character)
         {
-            
-            if (character.Casco == null)
-            {
                 character.Casco = CascoDefensa;
                 Equipado = true;
                 character.Defensa += CascoDefensa;
+                
 
-
-            }
-            else
-            {            
-            }
         }
 
         public override void Desequipar(Personaje character)
         {
-      
+            if (Equipado == true)
+            {
+                character.Defensa -= CascoDefensa;
+                Equipado = false;
+            }
         }
 
         public override string ToString()
