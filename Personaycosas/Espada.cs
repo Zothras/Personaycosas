@@ -14,7 +14,6 @@ namespace Personaycosas
 
         public override void Equipar(Personaje character)
         {
-            character.Espada = EspadaAtque;
             Equipado = true;
             character.Fuerza += EspadaAtque;
 

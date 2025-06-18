@@ -14,7 +14,6 @@ namespace Personaycosas
 
         public override void Equipar(Personaje character)
         {
-            character.Grebas = GrebasDefensa;
             Equipado = true;
             character.Defensa += GrebasDefensa;
 

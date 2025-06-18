@@ -14,7 +14,6 @@ namespace Personaycosas
 
         public override void Equipar(Personaje character)
         {
-                character.Casco = CascoDefensa;
                 Equipado = true;
                 character.Defensa += CascoDefensa;
                 
